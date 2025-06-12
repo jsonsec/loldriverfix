@@ -66,7 +66,7 @@ function Scan-LOLDrivers {
                 $_.FullName -notmatch "\\DriverData\\"
             } | ForEach-Object {
                 $filePath = $_.FullName
-                Write-Verbose "Computing hash for $filePath..."
+                Write-Verbose "Computing hash for ${filePath}..."
                 try {
                     $fileHash = [FileHashScanner]::ComputeSha256($filePath)
                     $fileAuthenticodeHash = [FileHashScanner]::GetAuthenticodeHash($filePath)
@@ -78,11 +78,11 @@ function Scan-LOLDrivers {
                         Write-Host "Authenticode hash match found: $filePath with hash $fileAuthenticodeHash (matches $($authenticodeHashes[$fileAuthenticodeHash].Description))"
                     }
                 } catch {
-                    Write-Verbose "Error processing file $filePath: $_"
+                    Write-Verbose "Error processing file ${filePath}: $_"
                 }
             }
         } catch {
-            Write-Verbose "Error accessing $directory: $_"
+            Write-Verbose "Error accessing ${directory}: $_"
         }
     }
 
